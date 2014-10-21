@@ -1,0 +1,59 @@
+@(signupForm: Form[is.ru.honn.ruber.domain.UserRegistration])
+
+@import helper._
+@import twitterBootstrap._
+
+@main("Signup", nav = "signup") {
+    @helper.form(action = routes.SignupController.signup) {
+        <fieldset>
+            <legend>Account information</legend>
+            @inputText(
+                signupForm("username"),
+                '_label -> "Username",
+                '_help -> "Please enter your username.",
+                '_error -> signupForm.globalError
+            )
+            @inputText(
+                signupForm("firstName"),
+                '_label -> "First name",
+                '_help -> "Please provide your first name.",
+                '_error -> signupForm.globalError
+            )
+            @inputText(
+                signupForm("lastName"),
+                '_label -> "Last name",
+                '_help -> "Please provide your last name.",
+                '_error -> signupForm.globalError
+            )
+
+            @inputText(
+                signupForm("email"),
+                '_label -> "Email",
+                '_help -> "Enter a valid email address."
+            )
+            @inputPassword(
+                signupForm("password"),
+                '_label -> "Password",
+                '_help -> "A password must be at least 6 characters. "
+            )
+            @inputPassword(
+                signupForm("repeatPassword"),
+                '_label -> "Repeat password",
+                '_help -> "Please repeat your password again.",
+                '_error -> signupForm.globalError
+            )
+        </fieldset>
+        <fieldset>
+        @checkbox(
+            signupForm("accept"),
+            '_label -> None, '_text -> "You agree to the Terms and conditions",
+            '_showConstraints -> false
+        )
+        </fieldset>
+
+        <div class="actions">
+            <input type="submit" class="btn btn-primary" value="Sign Up">
+            <a href="@routes.Application.index" class="btn">Cancel</a>
+        </div>
+    }
+}
