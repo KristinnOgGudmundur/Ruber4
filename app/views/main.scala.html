@@ -20,14 +20,14 @@
                                 <a href="TODO">Get Driver</a>
                             </li>
                             <li>
-                                <a href="">Logout</a>
+                                <a href="@routes.LoginController.logout()">Logout</a>
                             </li>
                         } else {
                             <li class="@("active".when(nav == "signup"))">
                                 <a href="@routes.SignupController.blank()">Sign up</a>
                             </li>
                             <li class="@("active".when(nav == "login"))">
-                                <a href="">Login</a>
+                                <a href="@routes.LoginController.login()">Login</a>
                             </li>
                         }
                     </ul>
