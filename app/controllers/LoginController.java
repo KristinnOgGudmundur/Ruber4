@@ -4,8 +4,6 @@ package controllers;
 import is.ru.honn.ruber.domain.User;
 import is.ru.honn.ruber.users.service.UserNotFoundException;
 import is.ru.honn.ruber.users.service.UserService;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 import play.data.*;
 import play.mvc.*;
 
@@ -14,7 +12,7 @@ import static play.data.Form.form;
 import views.html.index;
 import views.html.login;
 
-public class LoginController extends UserController
+public class LoginController extends AbstractUserController
 {
   final static Form<User> loginForm = form(User.class);
 

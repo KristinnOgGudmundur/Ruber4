@@ -5,7 +5,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import play.mvc.Controller;
 
-public class UserController extends Controller
+public abstract class AbstractUserController extends Controller
 {
-  protected static ApplicationContext ctx = new FileSystemXmlApplicationContext("/conf/UserService.xml");
+	protected static ApplicationContext ctx = new FileSystemXmlApplicationContext("/conf/UserService.xml");
 }

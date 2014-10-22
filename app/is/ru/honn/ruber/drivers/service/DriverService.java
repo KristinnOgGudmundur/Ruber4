@@ -1,4 +1,4 @@
-package is.ru.honn.ruber.drivers;
+package is.ru.honn.ruber.drivers.service;
 
 import is.ru.honn.ruber.domain.Driver;
 import is.ru.honn.ruber.domain.History;
