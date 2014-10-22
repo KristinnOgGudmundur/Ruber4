@@ -5,13 +5,15 @@
 	<bean id="processContext" class="is.ruframework.process.RuProcessContext">
 		<property name="processClass">
 			<value>is.ru.honn.ruber.process.TripImportProcess</value>
-			<!--<value>controllers.Application</value>-->
 		</property>
+
 		<property name="processName">
 			<value>TripImportProcess</value>
 		</property>
+
 		<property name="importURL">
 			<value>http://olafurandri.com/honn/history.json</value>
 		</property>
 	</bean>
+
 </beans>
