@@ -4,7 +4,3 @@ CREATE TABLE ru_drivers
   name nvarchar(256) NOT NULL,
   car nvarchar(128) NOT NULL
 )
-
-select * from ru_drivers
-
-insert into ru_drivers values('Travis Bickle', 'Herbie')

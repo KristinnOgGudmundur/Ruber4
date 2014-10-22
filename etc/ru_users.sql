@@ -8,5 +8,3 @@ CREATE TABLE ru_users
   email nvarchar(256),
   registered datetime
 )
-
-
