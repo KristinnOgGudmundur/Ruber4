@@ -16,11 +16,12 @@ import java.util.Map;
 
 public class UserData extends RuData implements UserDataGateway
 {
+	private String userTableName = "ru_users";
   public int addUser(User user)
   {
     SimpleJdbcInsert insert =
         new SimpleJdbcInsert(getDataSource())
-            .withTableName("ru_users")
+            .withTableName(userTableName)
             .usingGeneratedKeyColumns("id");
 
     Map<String, Object> parameters = new HashMap<String, Object>(6);
@@ -55,7 +56,7 @@ public class UserData extends RuData implements UserDataGateway
     try
     {
       user = (User)jdbcTemplate.queryForObject(
-          "select * from ru_users where username = '" + username + "'", new UserRowMapper());
+          "select * from " + userTableName + " where username = '" + username + "'", new UserRowMapper());
     }
     catch (EmptyResultDataAccessException erdaex)
     {
