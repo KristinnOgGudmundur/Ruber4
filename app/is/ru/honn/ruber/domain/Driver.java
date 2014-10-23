@@ -24,7 +24,7 @@ public class Driver {
 		return name;
 	}
 
-	public String car(){
+	public String getCar(){
 		return car;
 	}
 	//endregion Getters

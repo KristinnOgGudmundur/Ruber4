@@ -16,4 +16,12 @@ public class DriverController extends AbstractDriverController {
 
         return ok(drivers.render("Home", MyDrivers));
     }
+
+    public static Result details(int id){
+
+        DriverService service = (DriverService) ctx.getBean("driverService");
+
+        Driver driver = service.getDriver(id);
+        return ok(details.render("Home", driver));
+    }
 }

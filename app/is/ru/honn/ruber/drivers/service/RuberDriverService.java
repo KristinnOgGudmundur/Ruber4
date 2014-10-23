@@ -30,7 +30,14 @@ public class RuberDriverService implements DriverService {
 
     @Override
     public Driver getDriver(int driverID) {
-        return null;
+
+        Driver driver = driverDataGateway.getDriverById(driverID);
+
+        if(driver == null)
+        {
+            throw new UserNotFoundException("Driver Not Found");
+        }
+        return driver;
     }
 
     @Override

@@ -9,8 +9,10 @@
     @if(session.get("username")) {
 
         <ul>
-        @for(order <- drivers) {
-            <li>@order.getName()</li>
+        @for(driver <- drivers) {
+            <li>
+                <a href="@routes.DriverController.details(driver.getId)">@driver.getName</a>
+            </li>
         }
         </ul>
 

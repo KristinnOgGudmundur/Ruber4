@@ -11,6 +11,7 @@ POST        /login               controllers.LoginController.login()
 GET         /logout              controllers.LoginController.logout()
 #----------------------------------------------------------------------------
 GET         /driver              controllers.DriverController.getDrivers()
+GET         /driver/id           controllers.DriverController.details(id: Int)
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file        controllers.Assets.at(path="/public", file)

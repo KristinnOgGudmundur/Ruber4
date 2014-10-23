@@ -17,7 +17,7 @@
                     <ul class="nav">
                         @if(session.get("username")) {
                             <li>
-                                <a href="driver">Get Driver</a>
+                                <a href="@routes.DriverController.getDrivers()">Get Drivers</a>
                             </li>
                             <li>
                                 <a href="@routes.LoginController.logout()">Logout</a>
