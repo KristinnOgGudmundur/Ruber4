@@ -10,33 +10,33 @@ import java.util.logging.Logger;
 public class UserServiceData implements UserService
 {
 
-  private Logger log = Logger.getLogger(UserServiceData.class.getName());
+	private Logger log = Logger.getLogger(UserServiceData.class.getName());
 
-  private UserDataGateway userDataGateway;
+	private UserDataGateway userDataGateway;
 
-  public UserServiceData(UserDataGateway userDataGateway)
-  {
-    this.userDataGateway = userDataGateway;
-  }
+	public UserServiceData(UserDataGateway userDataGateway)
+	{
+		this.userDataGateway = userDataGateway;
+	}
 
-  @Override
-  public User userSignup(String username, String firstName, String lastName, String password, String email, Date registered) throws UsernameExistsException
-  {
-    User user = new User(username, firstName, lastName, password, email, registered);
-    int id = userDataGateway.addUser(user);
-    user.setId(id);
-    return user;
-  }
+	@Override
+	public User userSignup(String username, String firstName, String lastName, String password, String email, Date registered) throws UsernameExistsException
+	{
+		User user = new User(username, firstName, lastName, password, email, registered);
+		int id = userDataGateway.addUser(user);
+		user.setId(id);
+		return user;
+	}
 
-  @Override
-  public User getUser(String username) throws UserNotFoundException
-  {
-    User user = userDataGateway.getUserByUsername(username);
-    if (user == null)
-    {
-      throw new UserNotFoundException("User not found: " + username);
-    }
-    return user;
-  }
+	@Override
+	public User getUser(String username) throws UserNotFoundException
+	{
+		User user = userDataGateway.getUserByUsername(username);
+		if (user == null)
+		{
+			throw new UserNotFoundException("User not found: " + username);
+		}
+		return user;
+	}
 
 }
