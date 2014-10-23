@@ -12,47 +12,47 @@ import java.util.logging.Logger;
 
 public class TripImportProcess extends RuAbstractProcess implements TripHandler
 {
-  RidesService ridesService;
-  TripReader reader = new TripReader();
-  Logger log = Logger.getAnonymousLogger();
+	RidesService ridesService;
+	TripReader reader = new TripReader();
+	Logger log = Logger.getAnonymousLogger();
 
-  @Override
-  public void beforeProcess()
-  {
-    ApplicationContext appCtx = new FileSystemXmlApplicationContext("conf/RideService.xml");
-    ridesService = (RidesService)appCtx.getBean("RideService");
-    reader.setHandler(this);
-  }
+	@Override
+	public void beforeProcess()
+	{
+		ApplicationContext appCtx = new FileSystemXmlApplicationContext("conf/RideService.xml");
+		ridesService = (RidesService)appCtx.getBean("RideService");
+		reader.setHandler(this);
+	}
 
-  @Override
-  public void startProcess()
-  {
-    List<Trip> trips = new ArrayList();
-    try
-    {
-      reader.read(getProcessContext().getImportURL());
-    }
-    catch (ProcessException e)
-    {
-      String message = "Error reading importfile";
-      log.severe(message);
-      System.exit(0);
-    }
-  }
+	@Override
+	public void startProcess()
+	{
+		List<Trip> trips = new ArrayList();
+		try
+		{
+			reader.read(getProcessContext().getImportURL());
+		}
+		catch (ProcessException e)
+		{
+			String message = "Error reading importfile";
+			log.severe(message);
+			System.exit(0);
+		}
+	}
 
-  @Override
-  public void afterProcess()
-  {
-    List<Trip> trips = ridesService.getTrip(1);
-    for(Trip trip : trips)
-    {
-      System.out.println(trip);
-    }
-  }
+	@Override
+	public void afterProcess()
+	{
+		List<Trip> trips = ridesService.getTrip(1);
+		for(Trip trip : trips)
+		{
+			System.out.println(trip);
+		}
+	}
 
-  @Override
-  public void addTrip(Trip trip)
-  {
-    ridesService.addTrip(1, trip);
-  }
+	@Override
+	public void addTrip(Trip trip)
+	{
+		ridesService.addTrip(1, trip);
+	}
 }
