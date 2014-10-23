@@ -10,8 +10,8 @@ import java.util.List;
  * Created by Gvendur Stefáns on 21.10.2014.
  */
 public interface DriverService {
-	public List<Driver> getDrivers();
-	public Driver getDriver(int driverID);
-	public History getHistory(int driverID);
-	public void rateDriver(int driverID, Review review);
+    public List<Driver> getDrivers();
+    public Driver getDriver(int driverID);
+    public History getHistory(int driverID);
+    public void rateDriver(int driverID, Review review);
 }

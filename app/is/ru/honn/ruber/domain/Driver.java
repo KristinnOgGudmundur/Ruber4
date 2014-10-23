@@ -8,6 +8,13 @@ public class Driver {
 	protected String name;
 	protected String car;
 
+    public Driver(int id, String name, String car)
+    {
+        this.id = id;
+        this.name = name;
+        this.car = car;
+    }
+
 	//region Getters
 	public int getId(){
 		return id;
