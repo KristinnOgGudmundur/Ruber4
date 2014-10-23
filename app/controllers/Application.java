@@ -19,7 +19,7 @@ public class Application extends Controller
 	{
 		TripImportProcess theProcess = (TripImportProcess)ctx.getBean("importProcess");
 		RuProcessRunner importProcessRunner = new RuProcessRunner(theProcess);
-		//importProcessRunner.run();
+		importProcessRunner.run();
 		return ok(index.render("Welcome"));
 	}
 }
