@@ -1,19 +1,12 @@
-package is.ru.honn.ruber.drivers.data;
+package is.ru.honn.ruber.drivers.data.DriverData;
 
 import is.ru.honn.ruber.domain.Driver;
-import is.ru.honn.ruber.domain.User;
-import is.ru.honn.ruber.users.data.UserRowMapper;
-import is.ru.honn.ruber.users.service.UserNotFoundException;
+import is.ru.honn.ruber.drivers.service.Exceptions.DriverNotFoundException;
 import is.ruframework.data.RuData;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-
-import java.util.Collection;
 import java.util.List;
 
-/**
- * Created by Gvendur Stefáns on 22.10.2014.
- */
 public class DriverData extends RuData implements DriverDataGateway {
 
     private String driverTableName = "ru_drivers";
@@ -36,12 +29,12 @@ public class DriverData extends RuData implements DriverDataGateway {
 
         try
         {
-            driver = (Driver)jdbcTemplate.queryForObject(
+            driver = jdbcTemplate.queryForObject(
                     "select * from " + driverTableName + " where id = '" + id + "'", new DriverRowMapper());
         }
         catch (EmptyResultDataAccessException erdaex)
         {
-            throw new UserNotFoundException("No Driver found with id: " + id);
+            throw new DriverNotFoundException("No Driver found with id: " + id);
         }
         return driver;
     }
@@ -59,10 +52,9 @@ public class DriverData extends RuData implements DriverDataGateway {
         }
         catch (EmptyResultDataAccessException erdaex)
         {
-            throw new UserNotFoundException("No drivers found");
+            throw new DriverNotFoundException("No drivers found");
         }
         return drivers;
     }
-
 
 }

@@ -1,4 +1,4 @@
-package is.ru.honn.ruber.users.service;
+package is.ru.honn.ruber.users.service.Exceptions;
 
 
 public class UsernameExistsException extends RuntimeException

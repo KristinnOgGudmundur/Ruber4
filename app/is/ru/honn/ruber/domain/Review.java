@@ -10,6 +10,28 @@ public class Review {
 	protected String content;
 	protected int score;
 
+    public Review()
+    {
+
+    }
+
+    public Review(int id, int userId, int driverId, String content, int score)
+    {
+        this.id = id;
+        this.userId = userId;
+        this.driverId = driverId;
+        this.content = content;
+        this.score = score;
+    }
+
+    public Review(int userId, int driverId, String content, int score)
+    {
+        this.userId = userId;
+        this.driverId = driverId;
+        this.content = content;
+        this.score = score;
+    }
+
 	//region Getters
 	public int getId(){
 		return id;

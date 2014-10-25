@@ -1,4 +1,4 @@
-package is.ru.honn.ruber.drivers.data;
+package is.ru.honn.ruber.drivers.data.DriverData;
 
 import is.ru.honn.ruber.domain.Driver;
 import java.util.List;

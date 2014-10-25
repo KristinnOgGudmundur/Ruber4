@@ -4,9 +4,10 @@
 
 @main(title) {
 
-    <h2>Drivers</h2>
 
     @if(session.get("username")) {
+
+        <h2>Drivers</h2>
 
         <ul>
         @for(driver <- drivers) {
@@ -18,7 +19,7 @@
 
     } else {
 
-        <h3>This is not the Site you are looking for</h3>
+        <h2>This is not the Site you are looking for</h2>
 
     }
 }

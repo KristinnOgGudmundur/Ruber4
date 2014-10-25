@@ -2,7 +2,7 @@ package controllers;
 
 
 import is.ru.honn.ruber.domain.User;
-import is.ru.honn.ruber.users.service.UserNotFoundException;
+import is.ru.honn.ruber.users.service.Exceptions.UserNotFoundException;
 import is.ru.honn.ruber.users.service.UserService;
 import play.data.*;
 import play.mvc.*;

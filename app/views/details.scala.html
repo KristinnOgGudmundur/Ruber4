@@ -1,18 +1,53 @@
-@(title: String = "Home", driver: is.ru.honn.ruber.domain.Driver)
+@(title: String = "Home", driver: is.ru.honn.ruber.domain.Driver, commentForm: Form[is.ru.honn.ruber.domain.Review], reviews:  List[is.ru.honn.ruber.domain.Review], average: Double))
 
 @import play.api.Play.current
+@import helper._
+@import twitterBootstrap._
 
 @main(title) {
 
-    <h2>Driver: @driver.getName</h2>
-
     @if(session.get("username")) {
 
-    <h3>Car: @driver.getCar()</h3>
+    <h2>Driver: @driver.getName</h2>
 
+    <h3>Car: @driver.getCar()</h3>
+    <h3>Average rating: @average</h3>
+
+    <h2>@driver.getName's Reviews:</h2>
+
+        <ul>
+        @for(review <- reviews) {
+            <li>
+                <h4>@review.getScore</h4>
+                <p>@review.getContent()</p>
+            </li>
+        }
+        </ul>
+
+
+        @helper.form(action = routes.DriverController.rateDriver(driver.getId())) {
+            <fieldset>
+                <legend>My Review</legend>
+                @inputRadioGroup(
+                    commentForm("score"),
+                    options = Seq("1"->"1","2"->"2","3"->"3","4"->"4","5"->"5"),
+                    '_label -> "Rate!",
+                    '_error -> commentForm("grade").error.map(_.withMessage("some error"))
+                )
+                @inputText(
+                    commentForm("content"),
+                    '_label -> "Comment!"
+                )
+
+            </fieldset>
+
+            <div class="actions">
+                <input type="submit" class="btn primary" value="Add Review">
+            </div>
+        }
     } else {
 
-        <h3>This is not the Site you are looking for</h3>
+        <h2>This is not the Site you are looking for</h2>
 
     }
 }

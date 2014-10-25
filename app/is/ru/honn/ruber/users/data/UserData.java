@@ -1,8 +1,8 @@
 package is.ru.honn.ruber.users.data;
 
 import is.ru.honn.ruber.domain.User;
-import is.ru.honn.ruber.users.service.UserNotFoundException;
-import is.ru.honn.ruber.users.service.UsernameExistsException;
+import is.ru.honn.ruber.users.service.Exceptions.UserNotFoundException;
+import is.ru.honn.ruber.users.service.Exceptions.UsernameExistsException;
 import is.ruframework.data.RuData;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
