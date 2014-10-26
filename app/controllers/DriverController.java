@@ -39,7 +39,7 @@ public class DriverController extends AbstractDriverController {
         Driver driver = service.getDriver(driverId);
         List<Review> comments = service.getReviews(driverId);
 
-        return ok(details.render("Home", driver, CommentForm, comments, getAverage(comments)));
+        return ok(details.render(driver, CommentForm, comments, getAverage(comments)));
     }
 
     /**
@@ -56,6 +56,24 @@ public class DriverController extends AbstractDriverController {
 
         int myScore = Integer.parseInt(comment.field("score").value());
 
+        if (myScore == 0)
+        {
+            comment.reject("score", "need to add a rating");
+        }
+        if (comment.field("content").value() == "")
+        {
+            comment.reject("content", "need to add a comment");
+        }
+
+        if (comment.hasErrors())
+        {
+            Driver driver = driverService.getDriver(driverId);
+            List<Review> comments = driverService.getReviews(driverId);
+
+            return badRequest(details.render(driver, comment, comments, getAverage(comments)));
+        }
+
+        System.out.println(comment.field("content").value());
         //TODO Fetch the right userId instead of stubbing it with "1"
         driverService.rateDriver(1,driverId,comment.field("content").value(),myScore);
 
