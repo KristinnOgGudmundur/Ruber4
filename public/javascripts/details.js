@@ -94,7 +94,7 @@ function getComments(myDriverId)
 
 function updateComments(reviews)
 {
-    $("#mytable tr" ).remove();
+    $("#mytable tbody tr" ).remove();
     $.each(reviews, function(i, obj) {
         $("#myTable").find('tbody').append($('<tr><td>' + obj.score.toString() + '</td><td>'+  obj.content.toString() + '</td></tr>'))
     });
