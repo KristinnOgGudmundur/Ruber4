@@ -4,7 +4,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 /**
- * Created by Gvendur Stefáns on 28.10.2014.
+ * All controller classes that will use the ride service will need to extend this controller
  */
 public abstract class AbstractRideController {
 	protected static ApplicationContext ctx = new FileSystemXmlApplicationContext("/conf/RideService.xml");

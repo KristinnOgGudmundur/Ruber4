@@ -5,7 +5,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 import play.mvc.Controller;
 
 /**
- * Created by Gvendur Stefáns on 22.10.2014.
+ * All controller classes that will use the driver service will need to extend this controller
  */
 public abstract class AbstractDriverController extends Controller {
 	protected static ApplicationContext ctx = new FileSystemXmlApplicationContext("/conf/DriverService.xml");
