@@ -56,4 +56,8 @@ public class TripImportProcess extends RuAbstractProcess implements TripHandler
 	{
 		ridesService.addTrip(1, trip);
 	}
+
+	public RidesService getRideService(){
+		return this.ridesService;
+	}
 }

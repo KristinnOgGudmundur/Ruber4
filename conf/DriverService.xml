@@ -27,10 +27,14 @@
     <bean id="reviewDataGateway" class="is.ru.honn.ruber.drivers.data.ReviewData.ReviewData">
         <property name="dataSource" ref="dataSource"/>
     </bean>
+	<bean id="productDataGateway" class="is.ru.honn.ruber.drivers.data.ProductData.ProductData">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
 
 	<bean id="driverService" class="is.ru.honn.ruber.drivers.service.RuberDriverService" >
 		<constructor-arg index="0" ref="driverDataGateway"/>
         <constructor-arg index="1" ref="reviewDataGateway"/>
+		<constructor-arg index="2" ref="productDataGateway"/>
 	</bean>
 
 

@@ -10,7 +10,7 @@ public class DriverRowMapper implements RowMapper<Driver>
 {
     public Driver mapRow(ResultSet rs, int rowNum) throws SQLException
     {
-        Driver driver = new Driver(rs.getInt(1),rs.getString(2),rs.getString(3));
+        Driver driver = new Driver(rs.getInt(1),rs.getString(2),rs.getInt(3));
 
         return driver;
     }

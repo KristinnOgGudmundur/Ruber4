@@ -1,5 +1,7 @@
 package is.ru.honn.ruber.domain;
 
+import java.util.Date;
+
 public class Trip
 {
   protected int id;

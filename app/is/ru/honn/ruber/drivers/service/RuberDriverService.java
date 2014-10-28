@@ -1,11 +1,11 @@
 package is.ru.honn.ruber.drivers.service;
 
-import is.ru.honn.ruber.domain.Driver;
-import is.ru.honn.ruber.domain.History;
-import is.ru.honn.ruber.domain.Review;
+import is.ru.honn.ruber.domain.*;
 import is.ru.honn.ruber.drivers.data.DriverData.DriverDataGateway;
+import is.ru.honn.ruber.drivers.data.ProductData.ProductDataGateway;
 import is.ru.honn.ruber.drivers.data.ReviewData.ReviewDataGateway;
 import is.ru.honn.ruber.drivers.service.Exceptions.DriverNotFoundException;
+import is.ru.honn.ruber.drivers.service.Exceptions.ProductNotFoundException;
 import is.ru.honn.ruber.drivers.service.Exceptions.ReviewExistsException;
 import is.ru.honn.ruber.drivers.service.Exceptions.ReviewNotFoundException;
 
@@ -17,9 +17,12 @@ public class RuberDriverService implements DriverService {
 
     private ReviewDataGateway reviewDataGateway;
 
-    public RuberDriverService(DriverDataGateway driverDataGateway, ReviewDataGateway reviewDataGateway){
+	private ProductDataGateway productDataGateway;
+
+    public RuberDriverService(DriverDataGateway driverDataGateway, ReviewDataGateway reviewDataGateway, ProductDataGateway productDataGateway){
         this.driverDataGateway = driverDataGateway;
         this.reviewDataGateway = reviewDataGateway;
+		this.productDataGateway = productDataGateway;
     }
 
     @Override
@@ -42,24 +45,41 @@ public class RuberDriverService implements DriverService {
 
         if(driver == null)
         {
-            throw new DriverNotFoundException("Driver Not Found with id: " + driverId);
+            throw new DriverNotFoundException("Driver not Found with id: " + driverId);
         }
         return driver;
     }
 
     @Override
-    public Driver getDriver(String name) throws DriverNotFoundException{
+    public Driver getDriver(String driverName) throws DriverNotFoundException{
 
-        Driver driver = driverDataGateway.getDriverByName(name);
+        Driver driver = driverDataGateway.getDriverByName(driverName);
 
         if(driver == null)
         {
-            throw new DriverNotFoundException("Driver Not Found with name: " + name);
+            throw new DriverNotFoundException("Driver not Found with name: " + driverName);
         }
         return driver;
     }
 
-    @Override
+	@Override
+	public DriverDTO getDriverDTO(int driverId) throws DriverNotFoundException {
+		Driver driver = driverDataGateway.getDriverById(driverId);
+
+		if(driver == null)
+		{
+			throw new DriverNotFoundException("Driver not Found with id: " + driverId);
+		}
+		Product product = productDataGateway.getProductById(driver.getProductId());
+		if(product == null){
+			throw new ProductNotFoundException("Product not found with id: " + driver.getProductId());
+		}
+
+
+		return new DriverDTO(driver.getId(), driver.getName(), product.getCar_name());
+	}
+
+	@Override
     public List<Review> getReviews(int driverId) throws ReviewNotFoundException {
 
         List<Review> myReviews = reviewDataGateway.getReviews(driverId);

@@ -3,10 +3,14 @@ package is.ru.honn.ruber.domain;
 public class Product
 {
   protected int id;
-  protected String description;
-  protected String display_name;
-  protected int capacity;
-  protected String image;
+  protected String product_name;
+  protected String car_name;
+
+  public Product(int id, String product_name, String car_name){
+	  this.id = id;
+	  this.product_name = product_name;
+	  this.car_name = car_name;
+  }
 
   public int getId()
   {
@@ -18,55 +22,33 @@ public class Product
     this.id = id;
   }
 
-  public String getDescription()
+  public String getProduct_name()
   {
-    return description;
+    return product_name;
   }
 
-  public void setDescription(String description)
+  public void setProduct_name(String product_name)
   {
-    this.description = description;
+    this.product_name = product_name;
   }
 
-  public String getDisplay_name()
+  public String getCar_name()
   {
-    return display_name;
+    return car_name;
   }
 
-  public void setDisplay_name(String display_name)
+  public void setCar_name(String car_name)
   {
-    this.display_name = display_name;
-  }
-
-  public int getCapacity()
-  {
-    return capacity;
-  }
-
-  public void setCapacity(int capacity)
-  {
-    this.capacity = capacity;
-  }
-
-  public String getImage()
-  {
-    return image;
-  }
-
-  public void setImage(String image)
-  {
-    this.image = image;
+    this.car_name = car_name;
   }
 
   @Override
   public String toString()
   {
     return "Product{" +
-        "product_id='" + id + '\'' +
-        ", description='" + description + '\'' +
-        ", display_name='" + display_name + '\'' +
-        ", capacity=" + capacity +
-        ", image='" + image + '\'' +
+        "id='" + id + '\'' +
+        ", product_name='" + product_name + '\'' +
+        ", car_name='" + car_name + '\'' +
         '}';
   }
 }

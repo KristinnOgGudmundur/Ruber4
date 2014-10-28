@@ -13,13 +13,8 @@ import views.html.index;
 
 public class Application extends Controller
 {
-	protected static ApplicationContext ctx = new FileSystemXmlApplicationContext("/conf/ImportProcess.xml");
-
 	public static Result index()
 	{
-		TripImportProcess theProcess = (TripImportProcess)ctx.getBean("importProcess");
-		RuProcessRunner importProcessRunner = new RuProcessRunner(theProcess);
-		importProcessRunner.run();
 		return ok(index.render("Welcome"));
 	}
 }

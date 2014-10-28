@@ -1,0 +1,33 @@
+@(title: String = "Home", trips: List[is.ru.honn.ruber.domain.TripDTO])
+
+@import play.api.Play.current
+
+@main(title) {
+
+
+	@if(session.get("username")) {
+
+		<h2>Past trips</h2>
+
+		<ul>
+		@for(trip <- trips) {
+			<li>
+				<p>Driver: @trip.getDriver()</p>
+				<p>Request time: @trip.getDate()</p>
+				<p>Distance: @trip.getDistance() km</p>
+
+				@if(trip.getTime() > 3600){
+					<p>Time: @trip.getTimeHours() hours</p>
+				} else{
+					<p>Time: @trip.getTimeMinutes() minutes</p>
+				}
+			</li>
+		}
+		</ul>
+
+	} else {
+
+		<h2>This is not the Site you are looking for</h2>
+
+	}
+}

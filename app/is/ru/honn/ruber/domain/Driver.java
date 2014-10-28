@@ -6,13 +6,13 @@ package is.ru.honn.ruber.domain;
 public class Driver {
 	protected int id;
 	protected String name;
-	protected String car;
+	protected int productId;
 
-    public Driver(int id, String name, String car)
+    public Driver(int id, String name, int productId)
     {
         this.id = id;
         this.name = name;
-        this.car = car;
+        this.productId = productId;
     }
 
 	//region Getters
@@ -24,8 +24,8 @@ public class Driver {
 		return name;
 	}
 
-	public String getCar(){
-		return car;
+	public int getProductId(){
+		return productId;
 	}
 	//endregion Getters
 
@@ -38,13 +38,13 @@ public class Driver {
 		this.name = name;
 	}
 
-	public void setCar(String car){
-		this.car = car;
+	public void setProductId(int productId){
+		this.productId = productId;
 	}
 	//endregion Setters
 
 	@Override
 	public String toString(){
-		return String.format("Name: %s, Car: %s", name, car);
+		return String.format("Name: %s, ProductId: %s", name, productId);
 	}
 }

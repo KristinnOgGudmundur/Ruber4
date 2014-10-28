@@ -2,6 +2,7 @@ package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import is.ru.honn.ruber.domain.Driver;
+import is.ru.honn.ruber.domain.DriverDTO;
 import is.ru.honn.ruber.domain.Review;
 import is.ru.honn.ruber.drivers.service.DriverService;
 import play.libs.Json;
@@ -20,6 +21,8 @@ import java.util.List;
 import java.util.concurrent.Future;
 
 import static play.data.Form.form;
+import static play.libs.Json.toJson;
+import static play.mvc.Results.ok;
 
 public class DriverController extends AbstractDriverController {
 
@@ -48,11 +51,18 @@ public class DriverController extends AbstractDriverController {
 
         DriverService service = (DriverService) ctx.getBean("driverService");
 
-        Driver driver = service.getDriver(driverId);
+        DriverDTO driver = service.getDriverDTO(driverId);
         List<Review> comments = service.getReviews(driverId);
 
         return ok(details.render(driver, CommentForm, comments, getAverage(comments)));
     }
+
+	public static Result getDriverById(int driverId){
+		DriverService service = (DriverService)ctx.getBean("driverService");
+		Driver returnValue = service.getDriver(driverId);
+
+		return ok(toJson(returnValue));
+	}
 
     /**
      * adds a new review for driver with a specific driverId
@@ -63,14 +73,23 @@ public class DriverController extends AbstractDriverController {
     public static Result rateDriver(){
 
         JsonNode json = request().body().asJson();
+        Form<Review> comment = CommentForm.bindFromRequest();
         DriverService driverService = (DriverService) ctx.getBean("driverService");
 
         int myScore = json.findPath("score").asInt();
         int userId = json.findPath("userId").asInt();
         String driverName = json.findPath("driverName").asText();
         String content = json.findPath("content").asText();
-        Driver driver = driverService.getDriver(driverName);
-        int driverId = driver.getId();
+        Driver myDriver = driverService.getDriver(driverName);
+        int driverId = myDriver.getId();
+
+        if (comment.hasErrors())
+        {
+            DriverDTO driver = driverService.getDriverDTO(driverId);
+            List<Review> comments = driverService.getReviews(driverId);
+
+            return badRequest(details.render(driver, comment, comments, getAverage(comments)));
+        }
 
         driverService.rateDriver(userId,driverId,content,myScore);
 
