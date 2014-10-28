@@ -1,4 +1,4 @@
-@(title: String = "Home", trips: List[is.ru.honn.ruber.domain.Trip])
+@(title: String = "Home", trips: List[is.ru.honn.ruber.domain.TripDTO])
 
 @import play.api.Play.current
 
@@ -12,15 +12,14 @@
 		<ul>
 		@for(trip <- trips) {
 			<li>
-				<p>User id: @trip.getId()</p>
-				<p>Request time: @trip.getRequestTimeAsDate()</p>
-				<p>Status: @trip.getStatus()</p>
+				<p>Driver: @trip.getDriver()</p>
+				<p>Request time: @trip.getDate()</p>
 				<p>Distance: @trip.getDistance() km</p>
 
-				@if(trip.getTotalTime() > 3600){
-					<p>Time: @trip.getTotalHours() hours</p>
+				@if(trip.getTime() > 3600){
+					<p>Time: @trip.getTimeHours() hours</p>
 				} else{
-					<p>Time: @trip.getTotalMinutes() minutes</p>
+					<p>Time: @trip.getTimeMinutes() minutes</p>
 				}
 			</li>
 		}

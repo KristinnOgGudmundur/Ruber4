@@ -1,6 +1,8 @@
 package controllers;
 
+import is.ru.honn.ruber.domain.Driver;
 import is.ru.honn.ruber.domain.Trip;
+import is.ru.honn.ruber.domain.TripDTO;
 import is.ru.honn.ruber.domain.TripStatus;
 import is.ruframework.http.SimpleHttpRequest;
 import org.json.simple.JSONArray;
@@ -32,7 +34,7 @@ public class UserController extends AbstractUserController {
 
 		System.out.println(theArray);
 
-		List<Trip> returnValue = new ArrayList<Trip>();
+		List<TripDTO> returnValue = new ArrayList<TripDTO>();
 
 		for(Object obj : theArray){
 			JSONObject o = (JSONObject)obj;
@@ -46,7 +48,18 @@ public class UserController extends AbstractUserController {
 			trip.setStartTime(Integer.parseInt(o.get("startTime").toString()));
 			trip.setEndTime(Integer.parseInt(o.get("endTime").toString()));
 
-			returnValue.add(trip);
+			String driverName = "";
+
+			try {
+				String jsonString = jsonRequest.sendGetRequest("http://localhost:9000/api/driver/" + trip.getId());
+				JSONParser jsonParser = new JSONParser();
+				JSONObject theDriver = (JSONObject)jsonParser.parse(jsonString);
+				driverName = (String)theDriver.get("name");
+			}
+			catch(Exception e){
+
+			}
+			returnValue.add(new TripDTO(trip, driverName));
 		}
 		return ok(trips.render("Home", returnValue));
 	}

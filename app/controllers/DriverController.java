@@ -9,6 +9,8 @@ import play.mvc.*;
 import views.html.*;
 import java.util.List;
 import static play.data.Form.form;
+import static play.libs.Json.toJson;
+import static play.mvc.Results.ok;
 
 public class DriverController extends AbstractDriverController {
 
@@ -42,6 +44,13 @@ public class DriverController extends AbstractDriverController {
 
         return ok(details.render(driver, CommentForm, comments, getAverage(comments)));
     }
+
+	public static Result getDriverById(int driverId){
+		DriverService service = (DriverService)ctx.getBean("driverService");
+		Driver returnValue = service.getDriver(driverId);
+
+		return ok(toJson(returnValue));
+	}
 
     /**
      * adds a new review for driver with a specific driverId

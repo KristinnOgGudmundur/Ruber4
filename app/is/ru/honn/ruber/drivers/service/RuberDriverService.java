@@ -45,7 +45,7 @@ public class RuberDriverService implements DriverService {
 
         if(driver == null)
         {
-            throw new DriverNotFoundException("Driver Not Found with id: " + driverId);
+            throw new DriverNotFoundException("Driver not Found with id: " + driverId);
         }
         return driver;
     }

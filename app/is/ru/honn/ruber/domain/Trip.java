@@ -108,24 +108,6 @@ public class Trip
     this.endTime = endTime;
   }
 
-  public Date getRequestTimeAsDate(){
-	  return new Date(requestTime);
-  }
-
-  public long getTotalTime(){
-	  return endTime - startTime;
-  }
-
-  public long getTotalHours(){
-	  long totalTime = getTotalTime();
-	  return totalTime / 3600;
-  }
-
-  public long getTotalMinutes(){
-	  long totalTime = getTotalTime();
-	  return totalTime / 60;
-  }
-
   @Override
   public String toString()
   {
