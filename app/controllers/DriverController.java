@@ -1,6 +1,7 @@
 package controllers;
 
 import is.ru.honn.ruber.domain.Driver;
+import is.ru.honn.ruber.domain.DriverDTO;
 import is.ru.honn.ruber.domain.Review;
 import is.ru.honn.ruber.drivers.service.DriverService;
 import play.data.Form;
@@ -36,7 +37,7 @@ public class DriverController extends AbstractDriverController {
 
         DriverService service = (DriverService) ctx.getBean("driverService");
 
-        Driver driver = service.getDriver(driverId);
+        DriverDTO driver = service.getDriverDTO(driverId);
         List<Review> comments = service.getReviews(driverId);
 
         return ok(details.render(driver, CommentForm, comments, getAverage(comments)));
@@ -67,7 +68,7 @@ public class DriverController extends AbstractDriverController {
 
         if (comment.hasErrors())
         {
-            Driver driver = driverService.getDriver(driverId);
+            DriverDTO driver = driverService.getDriverDTO(driverId);
             List<Review> comments = driverService.getReviews(driverId);
 
             return badRequest(details.render(driver, comment, comments, getAverage(comments)));
