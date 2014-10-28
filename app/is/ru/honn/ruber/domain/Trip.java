@@ -1,5 +1,7 @@
 package is.ru.honn.ruber.domain;
 
+import java.util.Date;
+
 public class Trip
 {
   protected int id;
@@ -104,6 +106,24 @@ public class Trip
   public void setEndTime(long endTime)
   {
     this.endTime = endTime;
+  }
+
+  public Date getRequestTimeAsDate(){
+	  return new Date(requestTime);
+  }
+
+  public long getTotalTime(){
+	  return endTime - startTime;
+  }
+
+  public long getTotalHours(){
+	  long totalTime = getTotalTime();
+	  return totalTime / 3600;
+  }
+
+  public long getTotalMinutes(){
+	  long totalTime = getTotalTime();
+	  return totalTime / 60;
   }
 
   @Override

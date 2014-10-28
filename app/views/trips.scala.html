@@ -13,11 +13,16 @@
 		@for(trip <- trips) {
 			<li>
 				<p>User id: @trip.getId()</p>
-				<p>Request time: @trip.getRequestTime()</p>
+				<p>Request time: @trip.getRequestTimeAsDate()</p>
 				<p>ProductId: @trip.getProductId()</p>
 				<p>Status: @trip.getStatus()</p>
-				<p>Distance: @trip.getDistance()</p>
+				<p>Distance: @trip.getDistance() km</p>
 
+				@if(trip.getTotalTime() > 3600){
+					<p>Time: @trip.getTotalHours() hours</p>
+				} else{
+					<p>Time: @trip.getTotalMinutes() minutes</p>
+				}
 			</li>
 		}
 		</ul>

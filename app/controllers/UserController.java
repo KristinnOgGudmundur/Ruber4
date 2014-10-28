@@ -48,6 +48,6 @@ public class UserController extends AbstractUserController {
 
 			returnValue.add(trip);
 		}
-		return ok(trips.render("", returnValue));
+		return ok(trips.render("Home", returnValue));
 	}
 }
