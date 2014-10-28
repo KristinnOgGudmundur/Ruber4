@@ -1,4 +1,4 @@
-@(title: String = "Home", drivers: List[is.ru.honn.ruber.domain.Driver])
+@(title: String = "Home", drivers: List[is.ru.honn.ruber.domain.DriverDTO])
 
 @import play.api.Play.current
 
@@ -9,13 +9,22 @@
 
         <h2>Drivers</h2>
 
-        <ul>
+        <table>
+			<tr>
+				<th>Name</th>
+				<th>Car</th>
+			</tr>
         @for(driver <- drivers) {
-            <li>
-                <a href="@routes.DriverController.details(driver.getId)">@driver.getName</a>
-            </li>
+            <tr>
+				<td>
+                	<a href="@routes.DriverController.details(driver.getId)">@driver.getName</a>
+				</td>
+				<td>
+					<p>@driver.getCar()</p>
+				</td>
+            </tr>
         }
-        </ul>
+        </table>
 
     } else {
 

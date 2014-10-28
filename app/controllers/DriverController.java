@@ -6,6 +6,7 @@ import is.ru.honn.ruber.domain.Driver;
 import is.ru.honn.ruber.domain.DriverDTO;
 import is.ru.honn.ruber.domain.Review;
 import is.ru.honn.ruber.drivers.service.DriverService;
+import is.ru.honn.ruber.rides.RidesService;
 import play.libs.Json;
 import play.mvc.Result;
 import play.data.Form;
@@ -30,7 +31,13 @@ public class DriverController extends AbstractDriverController {
 
         DriverService service = (DriverService) ctx.getBean("driverService");
         List<Driver> MyDrivers = service.getDrivers();
-        return ok(drivers.render("Home", MyDrivers));
+		List<DriverDTO> returnValue = new ArrayList<DriverDTO>();
+
+		for(Driver d : MyDrivers){
+			DriverDTO dto = service.getDriverDTO(d.getId());
+			returnValue.add(dto);
+		}
+        return ok(drivers.render("Home", returnValue));
     }
 
     public static Result getReviews(int driverId)

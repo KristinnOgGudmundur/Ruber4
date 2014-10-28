@@ -35,14 +35,18 @@
             @helper.form(action = routes.DriverController.rateDriver(),'id -> "form") {
                 <fieldset>
                     <legend>My Review</legend>
-                    @inputRadioGroup(
+
+					@inputRadioGroup(
                         commentForm("score"),
-                        options = Seq("0"->"0", "1"->"1","2"->"2","3"->"3","4"->"4","5"->"5"),
+                        options = options("0"->"0", "1"->"1","2"->"2","3"->"3","4"->"4","5"->"5"),
                         '_label -> "Rate!",
                         'id -> "myradio",
                         'class -> "radio",
                         'required -> true
                     )
+
+
+					<span></span>
                     @textarea(
                         commentForm("content"),
                         '_label -> "Comment!",
@@ -101,8 +105,7 @@
                 $.ajax({
                 async: false,
                 type: 'GET',
-                url: 'http://localhost:9000/user/username',
-                data: {username: myusername},
+                url: 'http://localhost:9000/api/user/' + myusername,
                 success: function(data) {
                 user = $.parseJSON(data)
                 }
