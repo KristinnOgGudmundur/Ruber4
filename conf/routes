@@ -2,26 +2,28 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# Home page
-GET         /                            controllers.Application.index()
-GET         /signup                      controllers.SignupController.blank()
-POST        /signup                      controllers.SignupController.signup()
-GET         /login                       controllers.LoginController.blank()
-POST        /login                       controllers.LoginController.login()
-GET         /logout                      controllers.LoginController.logout()
+# User URLs
+GET         /                                   controllers.Application.index()
+GET         /signup                             controllers.SignupController.blank()
+POST        /signup                             controllers.SignupController.signup()
+GET         /login                              controllers.LoginController.blank()
+POST        /login                              controllers.LoginController.login()
+GET         /logout                             controllers.LoginController.logout()
+GET         /ride/:userId                       controllers.UserController.getTrips(userId: Int)
 
-GET         /ride/:userId                controllers.UserController.getTrips(userId: Int)
+#Driver URLs
+#--------------------------------------------------------------------------------------------------------------
+GET         /driver                             controllers.DriverController.getDrivers()
+GET         /driver/:id                         controllers.DriverController.details(id: Int)
+POST        /driver/rate                        controllers.DriverController.rateDriver()
+GET         /driver/reviews/driverId            controllers.DriverController.getReviews(driverId: Int)
 
-GET         /api/ride/:userId            controllers.RideController.getTrips(userId: Int)
-GET         /api/driver/:driverId        controllers.DriverController.getDriverById(driverId: Int)
-#----------------------------------------------------------------------------
-GET         /driver                      controllers.DriverController.getDrivers()
-GET         /driver/:id                   controllers.DriverController.details(id: Int)
-POST        /driver/rate                 controllers.DriverController.rateDriver()
-#-----------------------------------------------------------------------------
-
-GET         /driver/reviews/driverId     controllers.DriverController.getReviews(driverId: Int)
-GET         /api/user/:userName               controllers.UserController.getUserByUserName(userName: String)
+# API URLs
+#-------------------------------------------------------------------------------------------------------------
+GET         /api/user/:userName                 controllers.UserController.getUserByUserName(userName: String)
+GET         /api/ride/:userId                   controllers.RideController.getTrips(userId: Int)
+GET         /api/driver/:driverId               controllers.DriverController.getDriverById(driverId: Int)
+GET         /api/driver/name/:driverName        controllers.DriverController.getDriverIdByName(driverName: String)
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file                controllers.Assets.at(path="/public", file)
+GET         /assets/*file                       controllers.Assets.at(path="/public", file)

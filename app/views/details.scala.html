@@ -68,7 +68,17 @@
         <script type="text/javascript">
 
         $( document ).ready(function() {
-            getComments(1);
+            var drivername = $('#drivername').text();
+            var driver;
+            $.ajax({
+            async: false,
+            type: 'GET',
+            url: 'http://localhost:9000/api/driver/name/' + drivername,
+            success: function(data) {
+            driver = $.parseJSON(data);
+            }
+            });
+                getComments(driver.id.toString());
         });
 
         function show() {

@@ -12,6 +12,8 @@ import play.mvc.Result;
 import play.data.Form;
 import views.html.*;
 import org.json.simple.*;
+
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -88,6 +90,16 @@ public class DriverController extends AbstractDriverController {
 
 		return ok(toJson(returnValue));
 	}
+
+    public static Result getDriverIdByName(String name){
+        DriverService service = (DriverService)ctx.getBean("driverService");
+
+        Driver driver = service.getDriver(name);
+        ObjectNode result = Json.newObject();
+        result.put("id", driver.getId());
+
+        return ok(result.toString());
+    }
 
     /**
      * adds a new review for driver with a specific driverId
