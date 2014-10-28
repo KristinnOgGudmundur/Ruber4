@@ -16,10 +16,10 @@ GET         /api/ride/:userId            controllers.RideController.getTrips(use
 GET         /api/driver/:driverId        controllers.DriverController.getDriverById(driverId: Int)
 #----------------------------------------------------------------------------
 GET         /driver                      controllers.DriverController.getDrivers()
-GET         /driver/id                   controllers.DriverController.details(id: Int)
+GET         /driver/:id                   controllers.DriverController.details(id: Int)
 POST        /driver/rate                 controllers.DriverController.rateDriver()
 #-----------------------------------------------------------------------------
-GET         /user/username               controllers.UserController.getUserByUserName(username: String)
+GET         /api/user/:userName               controllers.UserController.getUserByUserName(userName: String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                controllers.Assets.at(path="/public", file)
