@@ -203,7 +203,8 @@ textarea {
 #logged
 {
     position: relative;
-    left: 700px;
+    float: right;
+    left: 500px;
     font-size: 120%;
     color: #ffffff;
 }
