@@ -10,20 +10,22 @@
         <h2>Drivers</h2>
 
         <table>
-			<tr>
+			<thead>
 				<th>Name</th>
 				<th>Car</th>
-			</tr>
-        @for(driver <- drivers) {
-            <tr>
-				<td>
-                	<a href="@routes.DriverController.details(driver.getId)">@driver.getName</a>
-				</td>
-				<td>
-					<p>@driver.getCar()</p>
-				</td>
-            </tr>
-        }
+			</thead>
+			<tbody>
+        	@for(driver <- drivers) {
+            	<tr>
+					<td>
+            	    	<a href="@routes.DriverController.details(driver.getId)">@driver.getName</a>
+					</td>
+					<td>
+						<p>@driver.getCar()</p>
+					</td>
+            	</tr>
+        	}
+			</tbody>
         </table>
 
     } else {

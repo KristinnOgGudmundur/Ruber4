@@ -8,7 +8,6 @@
     @if(session.get("username")) {
 
         <head>
-            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 			<script src="@routes.Assets.at("javascripts/details.js")" type="text/javascript"></script>
         </head>
 
@@ -164,6 +163,7 @@
 
         function updateComments(reviews)
         {
+			$("#mytable tr" ).remove();
             $.each(reviews, function(i, obj) {
                 $("#myTable").find('tbody').append($('<tr><td>' + obj.score.toString() + '</td><td>'+  obj.content.toString() + '</td></tr>'))
             });
