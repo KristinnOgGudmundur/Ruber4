@@ -33,7 +33,7 @@ public class RuberDriverService implements DriverService {
 
         if (drivers == null)
         {
-            throw new DriverNotFoundException("No Drivers Found");
+            throw new DriverNotFoundException("No drivers found");
         }
         return drivers;
     }
@@ -45,7 +45,7 @@ public class RuberDriverService implements DriverService {
 
         if(driver == null)
         {
-            throw new DriverNotFoundException("Driver not Found with id: " + driverId);
+            throw new DriverNotFoundException("Driver not found with id: " + driverId);
         }
         return driver;
     }
@@ -57,7 +57,7 @@ public class RuberDriverService implements DriverService {
 
         if(driver == null)
         {
-            throw new DriverNotFoundException("Driver not Found with name: " + driverName);
+            throw new DriverNotFoundException("Driver not found with name: " + driverName);
         }
         return driver;
     }
@@ -68,7 +68,7 @@ public class RuberDriverService implements DriverService {
 
 		if(driver == null)
 		{
-			throw new DriverNotFoundException("Driver not Found with id: " + driverId);
+			throw new DriverNotFoundException("Driver not found with id: " + driverId);
 		}
 		Product product = productDataGateway.getProductById(driver.getProductId());
 		if(product == null){
