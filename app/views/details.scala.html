@@ -1,4 +1,4 @@
-@(driver: is.ru.honn.ruber.domain.DriverDTO, commentForm: Form[is.ru.honn.ruber.domain.Review], reviews:  List[is.ru.honn.ruber.domain.Review], average: Double))
+@(driver: is.ru.honn.ruber.domain.DriverDTO, commentForm: Form[is.ru.honn.ruber.domain.Review], average: Double))
 
 @import helper._
 @import twitterBootstrap._
@@ -20,15 +20,14 @@
 
         <h2>@driver.getName's Reviews:</h2>
 
-        <ul class="reviews">
-        @for(review <- reviews) {
-            <li class="review">
-                <h3>@review.getContent()</h3>
-                <h4>My Rating: @review.getScore</h4>
-                <p>@review.getUserId</p>
-            </li>
-        }
-        </ul>
+        <table id="myTable">
+            <tbody>
+                <tr>
+                    <th>Rating</th>
+                    <th>Comment</th>
+                </tr>
+            </tbody>
+        </table>
 
 
         <div id="border">
@@ -64,10 +63,22 @@
 
         <script type="text/javascript">
 
+        $( document ).ready(function() {
+            getComments(1);
+        });
+
         function show() {
         document.getElementById('hiddebutton' ).style.display = "none";
         document.getElementById('hiddeMe').style.display = "inline";
         document.getElementById('border').style.border = "solid #808080";
+        }
+
+        function hideAndClear() {
+        $ ( '#mytext' ).val ('' ) ;
+        $ ( 'input[name=score]:checked', '#form' ).removeAttr("checked");
+        document.getElementById('hiddebutton' ).style.display = "inline";
+        document.getElementById('hiddeMe').style.display = "none";
+        document.getElementById('border').style.border = "none";
         }
 
         function add() {
@@ -108,8 +119,40 @@
                 dataType: "json"
                 })
                 .done(function( msg ) {
+                    getComments(msg.driverId.toString());
+                })
+                .fail(function( msg ) {
+                })
+                .always(function() {
                 });
             }
+        }
+
+        function getComments(myDriverId)
+        {
+            $.ajax({
+            type: "GET",
+            url: 'http://localhost:9000/driver/reviews/driverId',
+            data: {driverId: myDriverId},
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+            })
+            .done(function( data ) {
+                updateComments(data.reviews);
+                hideAndClear();
+                $('tr:last').get(0).scrollIntoView();
+            })
+            .fail(function( data ) {
+            })
+            .always(function() {
+            });
+        }
+
+        function updateComments(reviews)
+        {
+            $.each(reviews, function(i, obj) {
+                $("#myTable").find('tbody').append($('<tr><td>' + obj.score.toString() + '</td><td>'+  obj.content.toString() + '</td></tr>'))
+            });
         }
         </script>
     }

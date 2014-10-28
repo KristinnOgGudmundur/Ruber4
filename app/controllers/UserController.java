@@ -1,6 +1,5 @@
 package controllers;
 
-import is.ru.honn.ruber.domain.Driver;
 import is.ru.honn.ruber.domain.Trip;
 import is.ru.honn.ruber.domain.TripDTO;
 import is.ru.honn.ruber.domain.TripStatus;
@@ -9,15 +8,11 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import play.mvc.Result;
-import scala.util.parsing.json.JSON;
 import views.html.trips;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import is.ru.honn.ruber.domain.User;
 import is.ru.honn.ruber.users.service.UserService;
-import play.api.libs.json.JsObject;
 import play.libs.Json;
-import play.mvc.*;
-import play.data.*;
 import java.util.ArrayList;
 import java.util.List;
 

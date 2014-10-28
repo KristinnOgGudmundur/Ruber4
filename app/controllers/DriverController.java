@@ -1,28 +1,21 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import is.ru.honn.ruber.domain.Driver;
 import is.ru.honn.ruber.domain.DriverDTO;
 import is.ru.honn.ruber.domain.Review;
 import is.ru.honn.ruber.drivers.service.DriverService;
 import play.libs.Json;
-import play.libs.ws.*;
-import play.libs.F.*;
-import play.libs.ws.WSResponse;
 import play.mvc.Result;
-import static play.libs.F.Function;
-import static play.libs.F.Promise;
 import play.data.Form;
-import play.mvc.*;
 import views.html.*;
-
-import java.util.ArrayList;
+import org.json.simple.*;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.concurrent.Future;
-
+import java.util.Map;
 import static play.data.Form.form;
 import static play.libs.Json.toJson;
-import static play.mvc.Results.ok;
 
 public class DriverController extends AbstractDriverController {
 
@@ -40,6 +33,31 @@ public class DriverController extends AbstractDriverController {
         return ok(drivers.render("Home", MyDrivers));
     }
 
+    public static Result getReviews(int driverId)
+    {
+        DriverService service = (DriverService) ctx.getBean("driverService");
+        List<Review> reviews = service.getReviews(driverId);
+
+        JSONObject returnJson = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+
+        for(Review r : reviews)
+        {
+            //use HashMap so the order of objects stays the same
+            Map hashMap = new LinkedHashMap();
+
+            hashMap.put("content", r.getContent());
+            hashMap.put("score", r.getScore());
+
+            //add the HashMap to the JsonArray
+            jsonArray.add(hashMap);
+        }
+
+        //add the JsonArray to the JsonObject "prices"
+        returnJson.put("reviews", jsonArray);
+        return ok(returnJson.toString());
+    }
+
     /**
      * Fetches driver & Reviews from database
      * @param driverId
@@ -54,7 +72,7 @@ public class DriverController extends AbstractDriverController {
         DriverDTO driver = service.getDriverDTO(driverId);
         List<Review> comments = service.getReviews(driverId);
 
-        return ok(details.render(driver, CommentForm, comments, getAverage(comments)));
+        return ok(details.render(driver, CommentForm, getAverage(comments)));
     }
 
 	public static Result getDriverById(int driverId){
@@ -83,7 +101,10 @@ public class DriverController extends AbstractDriverController {
 
         driverService.rateDriver(userId,driverId,content,myScore);
 
-        return details(driverId);
+        ObjectNode result = Json.newObject();
+        result.put("driverId", driverId);
+
+        return ok(result.toString());
     }
 
     /**

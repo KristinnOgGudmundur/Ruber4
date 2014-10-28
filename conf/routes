@@ -20,6 +20,7 @@ GET         /driver/id                   controllers.DriverController.details(id
 POST        /driver/rate                 controllers.DriverController.rateDriver()
 #-----------------------------------------------------------------------------
 GET         /user/username               controllers.UserController.getUserByUserName(username: String)
+GET         /driver/reviews/driverId     controllers.DriverController.getReviews(driverId: Int)
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                controllers.Assets.at(path="/public", file)
