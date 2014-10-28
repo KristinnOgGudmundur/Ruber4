@@ -66,15 +66,6 @@ public class DriverController extends AbstractDriverController {
 
         int myScore = Integer.parseInt(comment.field("score").value());
 
-        if (myScore == 0)
-        {
-            comment.reject("score", "need to add a rating");
-        }
-        if (comment.field("content").value() == "")
-        {
-            comment.reject("content", "need to add a comment");
-        }
-
         if (comment.hasErrors())
         {
             DriverDTO driver = driverService.getDriverDTO(driverId);

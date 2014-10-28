@@ -33,13 +33,15 @@
                     <legend>My Review</legend>
                     @inputRadioGroup(
                         commentForm("score"),
-                        options = Seq("1"->"1","2"->"2","3"->"3","4"->"4","5"->"5"),
+                        options = Seq("0"->"0", "1"->"1","2"->"2","3"->"3","4"->"4","5"->"5"),
                         '_label -> "Rate!",
-                        'class -> "radio"
+                        'class -> "radio",
+						'required -> true
                     )
-                    @inputText(
+                    @textarea(
                         commentForm("content"),
-                        '_label -> "Comment!"
+                        '_label -> "Comment!",
+						'required -> true
                     )
 
                 </fieldset>
