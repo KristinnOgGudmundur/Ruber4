@@ -73,23 +73,13 @@ public class DriverController extends AbstractDriverController {
     public static Result rateDriver(){
 
         JsonNode json = request().body().asJson();
-        Form<Review> comment = CommentForm.bindFromRequest();
         DriverService driverService = (DriverService) ctx.getBean("driverService");
 
         int myScore = json.findPath("score").asInt();
         int userId = json.findPath("userId").asInt();
-        String driverName = json.findPath("driverName").asText();
         String content = json.findPath("content").asText();
-        Driver myDriver = driverService.getDriver(driverName);
-        int driverId = myDriver.getId();
-
-        if (comment.hasErrors())
-        {
-            DriverDTO driver = driverService.getDriverDTO(driverId);
-            List<Review> comments = driverService.getReviews(driverId);
-
-            return badRequest(details.render(driver, comment, comments, getAverage(comments)));
-        }
+        String driverName = json.findPath("driverName").asText();
+        int driverId = driverService.getDriver(driverName).getId();
 
         driverService.rateDriver(userId,driverId,content,myScore);
 

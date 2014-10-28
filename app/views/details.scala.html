@@ -7,27 +7,27 @@
 
     @if(session.get("username")) {
 
-    <head>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    </head>
+        <head>
+            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        </head>
 
-    <h1 id="drivername">@driver.getName</h1>
+        <h1 id="drivername">@driver.getName</h1>
 
         <div class="driverinfo">
             <h3>Car: @driver.getCar()</h3>
             <h3>Average rating: @average</h3>
         </div>
 
-    <h2>@driver.getName's Reviews:</h2>
+        <h2>@driver.getName's Reviews:</h2>
 
         <ul class="reviews">
-            @for(review <- reviews) {
-                <li class="review">
-                    <h3>@review.getContent()</h3>
-                    <h4>My Rating: @review.getScore</h4>
-                    <p>@review.getUserId</p>
-                </li>
-            }
+        @for(review <- reviews) {
+            <li class="review">
+                <h3>@review.getContent()</h3>
+                <h4>My Rating: @review.getScore</h4>
+                <p>@review.getUserId</p>
+            </li>
+        }
         </ul>
 
 
@@ -42,17 +42,17 @@
                         '_label -> "Rate!",
                         'id -> "myradio",
                         'class -> "radio",
-						'required -> true
+                        'required -> true
                     )
                     @textarea(
                         commentForm("content"),
                         '_label -> "Comment!",
                         'id -> "mytext",
-						'required -> true
+                        'required -> true
                     )
 
                 </fieldset>
-
+                <span id="formerror">Must fill out all fields</span>
                 <div class="actions">
                     <input type="button" onclick="add()" class="btnprimary" value="Add">
                 </div>
@@ -60,53 +60,59 @@
         </div>
 
 
-            <input type="button" id="hiddebutton" onclick="show()" value="Add Review">
+        <input type="button" id="hiddebutton" onclick="show()" value="Add Review">
 
         <script type="text/javascript">
 
-            function show() {
-                document.getElementById('hiddebutton' ).style.display = "none";
-                document.getElementById('hiddeMe').style.display = "inline";
-                document.getElementById('border').style.border = "solid #808080";
+        function show() {
+        document.getElementById('hiddebutton' ).style.display = "none";
+        document.getElementById('hiddeMe').style.display = "inline";
+        document.getElementById('border').style.border = "solid #808080";
+        }
+
+        function add() {
+
+            if($( '#mytext' ).val ( ).length === 0 || !$("input[name='score']:checked").val())
+            {
+                $('#formerror' ).css("display", "inline");
             }
-
-            function add() {
-
+            else
+            {
+                $('#formerror' ).css("display", "none   ");
                 var text = $ ( '#mytext' ).val ( ) ;
                 var radio = $ ( 'input[name=score]:checked', '#form' ).val ( ) ;
                 var url = $ ( "#form" ).attr ( "action" ) ;
                 var user;
                 var myusername =  $('#myusername' ).text();
                 var drivername = $('#drivername' ).text();
-                
-            //Getting the userId for the user
-            $.ajax({
-            async: false,
-            type: 'GET',
-            url: 'http://localhost:9000/user/username',
-            data: {username: myusername},
-            success: function(data) {
+
+                //Getting the userId for the user
+                $.ajax({
+                async: false,
+                type: 'GET',
+                url: 'http://localhost:9000/user/username',
+                data: {username: myusername},
+                success: function(data) {
                 user = $.parseJSON(data)
+                }
+                });
+                var userid = user.id;
+                var reviewinfo = { "content": text.toString(), "score": radio.toString(), userId: userid.toString(), driverName: drivername.toString() }
+
+                //Posting the review
+                $.ajax({
+                type: "POST",
+                url: url,
+                data: JSON.stringify({ Info: reviewinfo }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json"
+                })
+                .done(function( msg ) {
+                });
             }
-            });
-            var userid = user.id;
-            var reviewinfo = { "content": text.toString(), "score": radio.toString(), userId: userid.toString(), driverName: drivername.toString() }
-
-            //Posting the review
-            $.ajax({
-            type: "POST",
-            url: url,
-            data: JSON.stringify({ Info: reviewinfo }),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json"
-            })
-            .done(function( msg ) {
-            });
-
-
-            }
-        </script>
         }
+        </script>
+    }
     } else {
 
         <h2>This is not the Site you are looking for</h2>

@@ -207,6 +207,12 @@ textarea {
     font-size: 120%;
     color: #ffffff;
 }
+#formerror
+{
+    display: none;
+    color: red;
+    margin-left: 50px;
+}
 #myreview
 {
     position: relative;
