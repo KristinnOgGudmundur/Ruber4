@@ -1,8 +1,5 @@
 package is.ru.honn.ruber.domain;
 
-/**
- * Created by Gvendur Stefáns on 21.10.2014.
- */
 public class Review {
 	protected int id;
 	protected int userId;

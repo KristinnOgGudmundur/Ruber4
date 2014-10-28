@@ -2,9 +2,6 @@ package is.ru.honn.ruber.domain;
 
 import java.util.Date;
 
-/**
- * Created by Gvendur Stefáns on 28.10.2014.
- */
 public class TripDTO {
 	private Date date;
 	private double distance;

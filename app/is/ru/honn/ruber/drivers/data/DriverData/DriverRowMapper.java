@@ -6,6 +6,9 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * RowMapper for ru_drivers database
+ */
 public class DriverRowMapper implements RowMapper<Driver>
 {
     public Driver mapRow(ResultSet rs, int rowNum) throws SQLException

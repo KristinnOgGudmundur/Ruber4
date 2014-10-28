@@ -1,12 +1,13 @@
 package is.ru.honn.ruber.drivers.data.ProductData;
 
-import is.ru.honn.ruber.domain.Driver;
 import is.ru.honn.ruber.domain.Product;
 import org.springframework.jdbc.core.RowMapper;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * RowMapper for ru_products database
+ */
 public class ProductRowMapper implements RowMapper<Product>
 {
     public Product mapRow(ResultSet rs, int rowNum) throws SQLException

@@ -16,11 +16,15 @@ import play.libs.Json;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Gvendur Stefáns on 28.10.2014.
- */
 public class UserController extends AbstractUserController {
 
+    /**
+     * Fetches user from database for a given username
+     * @param userName
+     * username of user
+     * @return
+     * Json: {id, username, firstName, lastName, registered}
+     */
     public static Result getUserByUserName(String userName)
     {
         UserService service = (UserService) ctx.getBean("userService");
@@ -35,6 +39,13 @@ public class UserController extends AbstractUserController {
         return ok(result.toString());
     }
 
+    /**
+     * Fetches trip from data base for a given userId
+     * @param userId
+     * Id of user
+     * @return
+     * String title, List<TripDTO> returnValue
+     */
     public static Result getTrips(int userId){
 		SimpleHttpRequest jsonRequest = new SimpleHttpRequest();
 		JSONArray theArray = new JSONArray();

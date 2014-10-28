@@ -4,5 +4,10 @@ import is.ru.honn.ruber.domain.Trip;
 
 public interface TripHandler
 {
-  public void addTrip(Trip trip);
+    /**
+     * Adds a trip to our trips
+     * @param trip
+     * Trip to be added
+     */
+     public void addTrip(Trip trip);
 }

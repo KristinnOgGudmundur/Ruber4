@@ -6,13 +6,11 @@ import is.ru.honn.ruber.domain.Driver;
 import is.ru.honn.ruber.domain.DriverDTO;
 import is.ru.honn.ruber.domain.Review;
 import is.ru.honn.ruber.drivers.service.DriverService;
-import is.ru.honn.ruber.rides.RidesService;
 import play.libs.Json;
 import play.mvc.Result;
 import play.data.Form;
 import views.html.*;
 import org.json.simple.*;
-
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -42,6 +40,13 @@ public class DriverController extends AbstractDriverController {
         return ok(drivers.render("Home", returnValue));
     }
 
+    /**
+     * Fetches all reviews from database for a given driver
+     * @param driverId
+     * Id of the driver
+     * @return
+     * Json:[{content, score}]
+     */
     public static Result getReviews(int driverId)
     {
         DriverService service = (DriverService) ctx.getBean("driverService");
@@ -62,8 +67,9 @@ public class DriverController extends AbstractDriverController {
             jsonArray.add(hashMap);
         }
 
-        //add the JsonArray to the JsonObject "prices"
+        //add the JsonArray to the JsonObject
         returnJson.put("reviews", jsonArray);
+
         return ok(returnJson.toString());
     }
 
@@ -72,7 +78,7 @@ public class DriverController extends AbstractDriverController {
      * @param driverId
      * Id of the driver
      * @return
-     * String title, Driver driver, Form<Review> commentForm, List<Review> reviews, int average
+     * Driver driver, Form<Review> commentForm, int average
      */
     public static Result details(int driverId){
 
@@ -84,6 +90,13 @@ public class DriverController extends AbstractDriverController {
         return ok(details.render(driver, CommentForm, getAverage(comments)));
     }
 
+    /**
+     * Fetches driver from database for a given id
+     * @param driverId
+     * Id of the driver
+     * @return
+     * Json: Driver
+     */
 	public static Result getDriverById(int driverId){
 		DriverService service = (DriverService)ctx.getBean("driverService");
 		Driver returnValue = service.getDriver(driverId);
@@ -91,6 +104,12 @@ public class DriverController extends AbstractDriverController {
 		return ok(toJson(returnValue));
 	}
 
+    /** Fetches driver from database for a given username
+    * @param name
+    * username of the driver
+    * @return
+    * Json: {id}
+    */
     public static Result getDriverIdByName(String name){
         DriverService service = (DriverService)ctx.getBean("driverService");
 

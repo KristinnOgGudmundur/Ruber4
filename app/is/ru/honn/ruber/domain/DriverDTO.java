@@ -1,8 +1,5 @@
 package is.ru.honn.ruber.domain;
 
-/**
- * Created by Gvendur Stefáns on 28.10.2014.
- */
 public class DriverDTO {
 	protected int id;
 	protected String name;
