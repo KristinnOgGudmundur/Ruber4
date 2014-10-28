@@ -15,12 +15,6 @@ public class ProductData extends RuData implements ProductDataGateway {
     private String productTableName = "ru_products";
 
     @Override
-    public int addProduct(Product product) {
-        return 0;
-    }
-
-
-    @Override
     public Product getProductById(int id) {
 
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());

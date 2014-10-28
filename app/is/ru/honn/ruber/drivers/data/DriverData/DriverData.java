@@ -12,11 +12,6 @@ public class DriverData extends RuData implements DriverDataGateway {
     private String driverTableName = "ru_drivers";
 
     @Override
-    public int addDriver(Driver driver) {
-        return 0;
-    }
-
-    @Override
     public Driver getDriverByName(String name) {
 
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());

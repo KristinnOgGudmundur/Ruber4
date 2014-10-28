@@ -100,9 +100,4 @@ public class RuberDriverService implements DriverService {
         return review;
 
     }
-
-    @Override
-    public History getHistory(int driverID) {
-        return null;
-    }
 }

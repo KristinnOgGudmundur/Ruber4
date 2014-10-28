@@ -15,7 +15,6 @@ public interface DriverService {
     public Driver getDriver(int driverId) throws DriverNotFoundException;
     public Driver getDriver(String driverName) throws DriverNotFoundException;
 	public DriverDTO getDriverDTO(int driverId) throws DriverNotFoundException;
-    public History getHistory(int driverId);
     public Review rateDriver(int userId, int driverId, String content, int score);
     public List<Review> getReviews(int driverId) throws ReviewNotFoundException;
 }
