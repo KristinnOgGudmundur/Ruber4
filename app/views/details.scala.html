@@ -28,49 +28,44 @@
                 </tr>
             </thead>
 			<tbody>
-
 			</tbody>
         </table>
 
 
         <div id="border">
             <div id="hiddeMe" class="reviewform">
-            @helper.form(action = routes.DriverController.rateDriver(),'id -> "form") {
-                <fieldset>
-                    <legend>My Review</legend>
+                @helper.form(action = routes.DriverController.rateDriver(),'id -> "form") {
+                    <fieldset>
+                        <legend>My Review</legend>
+                        @inputRadioGroup(
+                            commentForm("score"),
+                            options = options("0"->"0", "1"->"1","2"->"2","3"->"3","4"->"4","5"->"5"),
+                            '_label -> "Rate!",
+                            'id -> "myradio",
+                            'class -> "radio",
+                            'required -> true
+                        )
+                        <span></span>
+                        @textarea(
+                            commentForm("content"),
+                            '_label -> "Comment!",
+                            'id -> "mytext",
+                            'required -> true
+                        )
+                    </fieldset>
 
-					@inputRadioGroup(
-                        commentForm("score"),
-                        options = options("0"->"0", "1"->"1","2"->"2","3"->"3","4"->"4","5"->"5"),
-                        '_label -> "Rate!",
-                        'id -> "myradio",
-                        'class -> "radio",
-                        'required -> true
-                    )
+                    <span id="formerror">Must fill out all fields</span>
 
-
-					<span></span>
-                    @textarea(
-                        commentForm("content"),
-                        '_label -> "Comment!",
-                        'id -> "mytext",
-                        'required -> true
-                    )
-
-                </fieldset>
-                <span id="formerror">Must fill out all fields</span>
-                <div class="actions">
-                    <input type="button" onclick="add()" class="btnprimary" value="Add">
-                </div>
+                    <div class="actions">
+                        <input type="button" onclick="add()" class="btnprimary" value="Add">
+                    </div>
+                }
             </div>
         </div>
 
-
         <input type="button" id="hiddebutton" onclick="show()" value="Add Review">
     }
-    } else {
-
+    else {
         <h2>This is not the Site you are looking for</h2>
-
     }
 }
