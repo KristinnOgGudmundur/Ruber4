@@ -48,6 +48,18 @@ public class RuberDriverService implements DriverService {
     }
 
     @Override
+    public Driver getDriver(String name) throws DriverNotFoundException{
+
+        Driver driver = driverDataGateway.getDriverByName(name);
+
+        if(driver == null)
+        {
+            throw new DriverNotFoundException("Driver Not Found with name: " + name);
+        }
+        return driver;
+    }
+
+    @Override
     public List<Review> getReviews(int driverId) throws ReviewNotFoundException {
 
         List<Review> myReviews = reviewDataGateway.getReviews(driverId);

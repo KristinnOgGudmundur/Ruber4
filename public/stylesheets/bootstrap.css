@@ -200,6 +200,13 @@ textarea {
 {
     margin-top: 10px;
 }
+#logged
+{
+    position: relative;
+    left: 700px;
+    font-size: 120%;
+    color: #ffffff;
+}
 #myreview
 {
     position: relative;

@@ -1,12 +1,15 @@
 @(driver: is.ru.honn.ruber.domain.Driver, commentForm: Form[is.ru.honn.ruber.domain.Review], reviews:  List[is.ru.honn.ruber.domain.Review], average: Double))
 
-
 @import helper._
 @import twitterBootstrap._
 
 @main("Home") {
 
     @if(session.get("username")) {
+
+    <head>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    </head>
 
     <h1 id="drivername">@driver.getName</h1>
 
@@ -22,44 +25,84 @@
                 <li class="review">
                     <h3>@review.getContent()</h3>
                     <h4>My Rating: @review.getScore</h4>
+                    <p>@review.getUserId</p>
                 </li>
             }
         </ul>
 
+
         <div id="border">
             <div id="hiddeMe" class="reviewform">
-            @helper.form(action = routes.DriverController.rateDriver(driver.getId())) {
+            @helper.form(action = routes.DriverController.rateDriver(),'id -> "form") {
                 <fieldset>
                     <legend>My Review</legend>
                     @inputRadioGroup(
                         commentForm("score"),
                         options = Seq("1"->"1","2"->"2","3"->"3","4"->"4","5"->"5"),
                         '_label -> "Rate!",
-                        'class -> "radio"
+                        'id -> "myradio"
                     )
                     @inputText(
                         commentForm("content"),
-                        '_label -> "Comment!"
+                        '_label -> "Comment!",
+                        'id -> "mytext"
                     )
 
                 </fieldset>
 
                 <div class="actions">
-                    <input type="submit" class="btn primary" value="Add">
+                    <input type="button" onclick="add()" class="btnprimary" value="Add">
                 </div>
             </div>
         </div>
 
 
-        <script type="text/javascript">
-        function show() {
-            document.getElementById('hiddebutton' ).style.display = "none";
-            document.getElementById('hiddeMe').style.display = "inline";
-            document.getElementById('border').style.border = "solid #808080";
-        }
-        </script>
+            <input type="button" id="hiddebutton" onclick="show()" value="Add Review">
 
-            <input type="button" id="hiddebutton" onclick="show(this)" value="Add Review">
+        <script type="text/javascript">
+
+            function show() {
+                document.getElementById('hiddebutton' ).style.display = "none";
+                document.getElementById('hiddeMe').style.display = "inline";
+                document.getElementById('border').style.border = "solid #808080";
+            }
+
+            function add() {
+
+                var text = $ ( '#mytext' ).val ( ) ;
+                var radio = $ ( 'input[name=score]:checked', '#form' ).val ( ) ;
+                var url = $ ( "#form" ).attr ( "action" ) ;
+                var user;
+                var myusername =  $('#myusername' ).text();
+                var drivername = $('#drivername' ).text();
+                
+            //Getting the userId for the user
+            $.ajax({
+            async: false,
+            type: 'GET',
+            url: 'http://localhost:9000/user/username',
+            data: {username: myusername},
+            success: function(data) {
+                user = $.parseJSON(data)
+            }
+            });
+            var userid = user.id;
+            var reviewinfo = { "content": text.toString(), "score": radio.toString(), userId: userid.toString(), driverName: drivername.toString() }
+
+            //Posting the review
+            $.ajax({
+            type: "POST",
+            url: url,
+            data: JSON.stringify({ Info: reviewinfo }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+            })
+            .done(function( msg ) {
+            });
+
+
+            }
+        </script>
         }
     } else {
 

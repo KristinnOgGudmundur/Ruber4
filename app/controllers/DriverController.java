@@ -1,12 +1,24 @@
 package controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import is.ru.honn.ruber.domain.Driver;
 import is.ru.honn.ruber.domain.Review;
 import is.ru.honn.ruber.drivers.service.DriverService;
+import play.libs.Json;
+import play.libs.ws.*;
+import play.libs.F.*;
+import play.libs.ws.WSResponse;
+import play.mvc.Result;
+import static play.libs.F.Function;
+import static play.libs.F.Promise;
 import play.data.Form;
 import play.mvc.*;
 import views.html.*;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Future;
+
 import static play.data.Form.form;
 
 public class DriverController extends AbstractDriverController {
@@ -44,38 +56,23 @@ public class DriverController extends AbstractDriverController {
 
     /**
      * adds a new review for driver with a specific driverId
-     * @param driverId
      * Id of the driver
      * @return
      * String title, Driver driver, Form<Review> commentForm, List<Review> reviews, int average
      */
-    public static Result rateDriver(int driverId){
+    public static Result rateDriver(){
 
-        Form<Review> comment = CommentForm.bindFromRequest();
+        JsonNode json = request().body().asJson();
         DriverService driverService = (DriverService) ctx.getBean("driverService");
 
-        int myScore = Integer.parseInt(comment.field("score").value());
+        int myScore = json.findPath("score").asInt();
+        int userId = json.findPath("userId").asInt();
+        String driverName = json.findPath("driverName").asText();
+        String content = json.findPath("content").asText();
+        Driver driver = driverService.getDriver(driverName);
+        int driverId = driver.getId();
 
-        if (myScore == 0)
-        {
-            comment.reject("score", "need to add a rating");
-        }
-        if (comment.field("content").value() == "")
-        {
-            comment.reject("content", "need to add a comment");
-        }
-
-        if (comment.hasErrors())
-        {
-            Driver driver = driverService.getDriver(driverId);
-            List<Review> comments = driverService.getReviews(driverId);
-
-            return badRequest(details.render(driver, comment, comments, getAverage(comments)));
-        }
-
-        System.out.println(comment.field("content").value());
-        //TODO Fetch the right userId instead of stubbing it with "1"
-        driverService.rateDriver(1,driverId,comment.field("content").value(),myScore);
+        driverService.rateDriver(userId,driverId,content,myScore);
 
         return details(driverId);
     }

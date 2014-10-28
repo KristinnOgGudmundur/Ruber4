@@ -18,7 +18,20 @@ public class DriverData extends RuData implements DriverDataGateway {
 
     @Override
     public Driver getDriverByName(String name) {
-        return null;
+
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+        Driver driver;
+
+        try
+        {
+            driver = jdbcTemplate.queryForObject(
+                    "select * from " + driverTableName + " where name = '" + name + "'", new DriverRowMapper());
+        }
+        catch (EmptyResultDataAccessException erdaex)
+        {
+            throw new DriverNotFoundException("No Driver found with name: " + name);
+        }
+        return driver;
     }
 
     @Override

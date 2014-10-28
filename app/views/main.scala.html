@@ -22,6 +22,9 @@
                             <li>
                                 <a href="@routes.LoginController.logout()">Logout</a>
                             </li>
+                            <li>
+                                <p id="logged">Logged in as <strong id="myusername">@session.get("username")</strong></p>
+                            </li>
                         } else {
                             <li class="@("active".when(nav == "signup"))">
                                 <a href="@routes.SignupController.blank()">Sign up</a>
