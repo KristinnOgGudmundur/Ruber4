@@ -1,0 +1,30 @@
+@(title: String = "Home", trips: List[is.ru.honn.ruber.domain.Trip])
+
+@import play.api.Play.current
+
+@main(title) {
+
+
+	@if(session.get("username")) {
+
+		<h2>Past trips</h2>
+
+		<ul>
+		@for(trip <- trips) {
+			<li>
+				<p>User id: @trip.getId()</p>
+				<p>Request time: @trip.getRequestTime()</p>
+				<p>ProductId: @trip.getProductId()</p>
+				<p>Status: @trip.getStatus()</p>
+				<p>Distance: @trip.getDistance()</p>
+
+			</li>
+		}
+		</ul>
+
+	} else {
+
+		<h2>This is not the Site you are looking for</h2>
+
+	}
+}

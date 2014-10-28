@@ -3,16 +3,20 @@
 # ~~~~
 
 # Home page
-GET         /                    controllers.Application.index()
-GET         /signup              controllers.SignupController.blank()
-POST        /signup              controllers.SignupController.signup()
-GET         /login               controllers.LoginController.blank()
-POST        /login               controllers.LoginController.login()
-GET         /logout              controllers.LoginController.logout()
+GET         /                      controllers.Application.index()
+GET         /signup                controllers.SignupController.blank()
+POST        /signup                controllers.SignupController.signup()
+GET         /login                 controllers.LoginController.blank()
+POST        /login                 controllers.LoginController.login()
+GET         /logout                controllers.LoginController.logout()
+
+GET         /ride/:userId		   controllers.UserController.getTrips(userId: Int)
+
+GET			/api/ride/:userId	   controllers.RideController.getTrips(userId: Int)
 #----------------------------------------------------------------------------
-GET         /driver              controllers.DriverController.getDrivers()
-GET         /driver/id           controllers.DriverController.details(id: Int)
-POST        /driver/id/rate      controllers.DriverController.rateDriver(id: Int)
+GET         /driver                controllers.DriverController.getDrivers()
+GET         /driver/id             controllers.DriverController.details(id: Int)
+POST        /driver/id/rate        controllers.DriverController.rateDriver(id: Int)
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file        controllers.Assets.at(path="/public", file)
+GET         /assets/*file          controllers.Assets.at(path="/public", file)
